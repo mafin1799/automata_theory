@@ -70,3 +70,10 @@ class UserProfileView(APIView):
     def get(self, request):
         serializer = UserSerializer(request.user)
         return Response(serializer.data)
+
+def Multiplication(request, operand1, operand2, algorithm, number_type):
+    # Здесь вы можете использовать переданные параметры для выполнения необходимой логики
+    # Например, вычислить результат умножения операндов с использованием указанного алгоритма и типа числа
+    print(operand1,operand2,algorithm,number_type)
+    # В данном случае просто возвращаем "ОК"
+    return ("ОК")

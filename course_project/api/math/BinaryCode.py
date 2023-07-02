@@ -23,12 +23,12 @@ def add_lists_with_carry(list1, list2):
     return result
 
 class BinaryCode:
-    def __init__(self, bits, bits_width):
+    def __init__(self, bits, bitness):
         self.bits = bits
-        self.bits_width = bits_width
+        self.bitness = bitness
 
     def __str__(self):
-        if len(self.bits) > self.bits_width:
+        if len(self.bits) > self.bitness:
             bit_str = ''.join(str(bit) for bit in self.bits)
             return '!' + bit_str
         return ''.join(str(bit) for bit in self.bits)

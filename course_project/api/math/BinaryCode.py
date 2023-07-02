@@ -28,6 +28,9 @@ class BinaryCode:
         self.bits_width = bits_width
 
     def __str__(self):
+        if len(self.bits) > self.bits_width:
+            bit_str = ''.join(str(bit) for bit in self.bits)
+            return '!' + bit_str
         return ''.join(str(bit) for bit in self.bits)
 
     def is_negative(self):

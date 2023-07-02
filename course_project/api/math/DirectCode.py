@@ -16,7 +16,8 @@ class DirectCode(BinaryCode):
                 binary_string = bin(input_data)[2:]
             bits = [int(bit) for bit in binary_string]
         if len(bits) > bits_width:
-            raise ValueError("Переполнение разрядной сетки")
+            pass
+            #raise ValueError("Переполнение разрядной сетки")
         super().__init__(bits, bits_width)
 
     def __lshift__(self, shift):
@@ -34,7 +35,7 @@ class DirectCode(BinaryCode):
         return DirectCode(result, self.bits_width)
 
 
-binary = DirectCode(5, 4)
+binary = DirectCode(50, 4)
 
 binary2 = DirectCode(19, 5)
 print(binary)

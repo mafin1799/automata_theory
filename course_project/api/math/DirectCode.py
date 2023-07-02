@@ -2,7 +2,9 @@ from BinaryCode import BinaryCode, add_lists_with_carry
 
 
 class DirectCode(BinaryCode):
-    def __init__(self, number, bitness=4):
+
+    def __init__(self, number, bitness=32):
+        bits = None
         if isinstance(number, list):
             bits = number
         elif isinstance(number, DirectCode):

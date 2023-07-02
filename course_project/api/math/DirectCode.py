@@ -2,42 +2,40 @@ from BinaryCode import BinaryCode, add_lists_with_carry
 
 
 class DirectCode(BinaryCode):
-    def __init__(self, input_data):
+    def __init__(self, input_data, bits_width=32):
         if isinstance(input_data, list):
             bits = input_data
+        elif isinstance(input_data, DirectCode):
+            bits = input_data.bits
         elif isinstance(input_data, str):
             bits = [int(bit) for bit in input_data]
         elif isinstance(input_data, int):
-            binary_string = bin(input_data)[2:]
+            if input_data < 0:
+                binary_string = bin(input_data)[3:]
+            else:
+                binary_string = bin(input_data)[2:]
             bits = [int(bit) for bit in binary_string]
-        # Далее определить конвертацию из обратного и дополнительного кода
-        else:
-            raise ValueError("Invalid input data type")
-        super().__init__(bits)
+        if len(bits) > bits_width:
+            raise ValueError("Переполнение разрядной сетки")
+        super().__init__(bits, bits_width)
 
     def __lshift__(self, shift):
         shifted_bits = self.bits + [0] * shift
-        return self.__class__(shifted_bits)
+        return self.__class__(shifted_bits, self.bits_width)
 
     def __rshift__(self, shift):
         shifted_bits = [0] * shift + self.bits
-        return self.__class__(shifted_bits)
+        return self.__class__(shifted_bits, self.bits_width)
 
     def __add__(self, other):
-        # Сложение в прямом коде
-        if not isinstance(other, BinaryCode):
-            raise ValueError("Invalid operand type for addition")
-
-        if not self.is_negative() and not other.is_negative():
-            result = add_lists_with_carry(self.bits, other.bits)
-
-            BinaryCode(result)
-
-            return BinaryCode(result)
+        # Сложение в прямом коде без учета знака
+        other_binary = DirectCode(other, self.bits_width)
+        result = add_lists_with_carry(self.bits, other_binary.bits)
+        return DirectCode(result, self.bits_width)
 
 
-binary = DirectCode(10)
+binary = DirectCode(5, 4)
 
-binary2 = DirectCode(20)
-print(binary << 2)
-print(add_lists_with_carry(binary.bits, binary2.bits))
+binary2 = DirectCode(19, 5)
+print(binary)
+print(binary2 + binary)

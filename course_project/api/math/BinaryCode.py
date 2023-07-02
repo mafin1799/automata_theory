@@ -23,8 +23,9 @@ def add_lists_with_carry(list1, list2):
     return result
 
 class BinaryCode:
-    def __init__(self, bits):
+    def __init__(self, bits, bits_width):
         self.bits = bits
+        self.bits_width = bits_width
 
     def __str__(self):
         return ''.join(str(bit) for bit in self.bits)

@@ -8,11 +8,13 @@
 git clone https://github.com/mafin1799/automata_theory.git
 ```
 - Установите зависимости:
-```
+```bash
+cd automata_theory
 pip install -r requirements.txt
 ```
 - После установки зависимостей введите команду:
-```
+```bash
+cd course_project
 python manage.py runserver
 ```
 Поздравляю, проект запущен! 

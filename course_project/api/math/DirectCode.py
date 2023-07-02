@@ -2,7 +2,7 @@ from BinaryCode import BinaryCode, add_lists_with_carry
 
 
 class DirectCode(BinaryCode):
-    def __init__(self, input_data, bits_width=32):
+    def __init__(self, input_data, bits_width=4):
         if isinstance(input_data, list):
             bits = input_data
         elif isinstance(input_data, DirectCode):
@@ -11,13 +11,13 @@ class DirectCode(BinaryCode):
             bits = [int(bit) for bit in input_data]
         elif isinstance(input_data, int):
             if input_data < 0:
+                self.sign = 1
+                print(1)
                 binary_string = bin(input_data)[3:]
-            else:
+            elif input_data > 0:
+                self.sign = 0
                 binary_string = bin(input_data)[2:]
             bits = [int(bit) for bit in binary_string]
-        if len(bits) > bits_width:
-            pass
-            #raise ValueError("Переполнение разрядной сетки")
         super().__init__(bits, bits_width)
 
     def __lshift__(self, shift):
@@ -35,8 +35,8 @@ class DirectCode(BinaryCode):
         return DirectCode(result, self.bits_width)
 
 
-binary = DirectCode(50, 4)
+binary = DirectCode("001")
 
-binary2 = DirectCode(19, 5)
-print(binary)
-print(binary2 + binary)
+binary2 = DirectCode("001")
+print(binary2)
+print((binary + binary2))

@@ -3,6 +3,7 @@ from BinaryCode import BinaryCode, add_lists_with_carry
 
 class ReverseCode(BinaryCode):
     def __init__(self, number, bitness=4):
+        bits = None
         if isinstance(number, list):
             bits = [1 if bit == 0 else 0 for bit in number]
         elif isinstance(number, ReverseCode):
@@ -12,6 +13,7 @@ class ReverseCode(BinaryCode):
             self.sign = bits[0]
             bits = [1 if bit == 0 else 0 for bit in bits]
         elif isinstance(number, int):
+            bit_list = None
             if number > 0:
                 self.sign = 0
                 bit_list = [int(bit) for bit in bin(number)[2:]]

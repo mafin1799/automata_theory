@@ -1,6 +1,7 @@
 def toDirect(num, range):
     direct_code = format(num, range)
-    return direct_code.replace('-','1')
+    return direct_code.replace('-', '1')
+
 
 # Обратный код
 def toInverse(num, range):
@@ -18,7 +19,7 @@ def toComplement(num, range):
     return format(complement_code, range)
 
 
-#Test
+# Test
 print(toDirect(12, '08b'))
 print(toInverse(12, '08b'))
 print(toComplement(12, '08b'))

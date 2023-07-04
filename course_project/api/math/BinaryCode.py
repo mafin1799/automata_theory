@@ -1,32 +1,64 @@
-def add_lists_with_carry(list1, list2):
-    carry = 0
-    result = []
-    # Обработка списков пока они не закончатся
-    while list1 or list2:
-        # Получение следующего элемента из каждого списка
-        element1 = list1.pop() if list1 else 0
-        element2 = list2.pop() if list2 else 0
-        # Сложение элементов с учетом переноса
-        sum_elements = element1 + element2 + carry
-        element = sum_elements % 2
-        carry = sum_elements // 2
-        # Добавление результата в начало списка
-        result.insert(0, element)
-    # Если остался перенос, добавляем его в начало списка
-    if carry:
-        result.insert(0, carry)
-    return result
-
-
 class BinaryCode:
-    def __init__(self, bits, bitness):
-        self.bits = bits
-        self.sign = bits[0]
-        self.bitness = bitness
-        self.overflow = len(bits) - 1 > bitness
+    __overflow = "ПЕРЕПОЛНЕНИЕ"
 
-    def __str__(self):
-        bit_str = ''.join(str(bit) for bit in self.bits)
-        if self.overflow:
-            return '!' + bit_str
-        return bit_str
+    def __init__(self, number: int, bitness: int = 8):
+        self.number = number
+        self.bitness = bitness
+
+    def __add__(self, second_number):
+        result = self.number + second_number.number
+
+        return BinaryCode(result, self.bitness)
+
+    def __lshift__(self, shift):
+        return self.__class__(self.number << shift, self.bitness)
+
+    def __rshift__(self, shift):
+        return self.__class__(self.number >> shift, self.bitness)
+
+    def get_direct_code(self):
+        binary = self.__get_binary()
+        if self.__is_overflow():
+            return self.__overflow
+
+        if self.number >= 0:
+            return binary
+        else:
+            return '-' + binary
+
+    def get_inverse_code(self):
+        binary = self.__get_binary()
+        if self.__is_overflow():
+            return self.__overflow
+        if self.number >= 0:
+            return binary
+        else:
+            inverse = ''.join('1' if bit == '0' else '0' for bit in binary)
+            return inverse
+
+    def get_complement_code(self):
+        binary = self.__get_binary()
+        if self.__is_overflow():
+            return self.__overflow
+
+        if self.number >= 0:
+            return binary
+        else:
+            complement = bin(int('1' + ''.join('1' if bit == '0' else '0' for bit in binary), 2) + 1)[2:].zfill(8)
+            return complement
+
+    def __is_overflow(self):
+        binary = self.__get_binary()
+        return len(binary) > self.bitness
+
+    def __get_binary(self):
+        return bin(abs(self.number))[2:].zfill(self.bitness)
+
+
+print(BinaryCode(-256, bitness=8).get_direct_code())
+print(BinaryCode(-256, bitness=8).get_inverse_code())
+print(BinaryCode(-256, bitness=8).get_complement_code())
+
+print(BinaryCode(-255, bitness=8).get_direct_code())
+print(BinaryCode(-255, bitness=8).get_inverse_code())
+print(BinaryCode(-255, bitness=8).get_complement_code())

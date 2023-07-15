@@ -20,7 +20,7 @@ class ShiftMultipliableLeft(Multiply):
 
             data.append(result.get_direct_code())
 
-            if bin != 0:
+            if index != 0:
                 multipliable = multipliable << 1
                 data.append(multipliable.get_direct_code())
         data.append(result.get_direct_code())

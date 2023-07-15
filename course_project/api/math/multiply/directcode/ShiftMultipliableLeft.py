@@ -25,4 +25,6 @@ class ShiftMultipliableLeft(Multiply):
                 right_sequence.append(multipliable.get_direct_code())
         right_sequence.append(result.get_direct_code())
 
+        self._sequence_length = len(right_sequence)
+
         return right_sequence

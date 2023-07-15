@@ -7,7 +7,7 @@ class ShiftMultipliableLeft(Multiply):
         right_sequence = list()
 
         multiplier_binary = multiplier.get_direct_code()
-        result = BinaryCode(0, 8)
+        result = BinaryCode(0, self.bitness)
 
         right_sequence.append(result.get_direct_code())
         right_sequence.append(multipliable.get_direct_code())
@@ -25,4 +25,4 @@ class ShiftMultipliableLeft(Multiply):
                 right_sequence.append(multipliable.get_direct_code())
         right_sequence.append(result.get_direct_code())
 
-        print(right_sequence)
+        return right_sequence

@@ -6,8 +6,7 @@ class BinaryCode:
         self.bitness = bitness
 
     def __add__(self, second_number):
-        result = self.number + second_number.number
-
+        result = self.number + second_number.number             
         return BinaryCode(result, self.bitness)
 
     def __lshift__(self, shift):
@@ -55,10 +54,10 @@ class BinaryCode:
         return bin(abs(self.number))[2:].zfill(self.bitness)
 
 
-print(BinaryCode(-256, bitness=8).get_direct_code())
-print(BinaryCode(-256, bitness=8).get_inverse_code())
-print(BinaryCode(-256, bitness=8).get_complement_code())
+# print(BinaryCode(-256, bitness=8).get_direct_code())
+# print(BinaryCode(-256, bitness=8).get_inverse_code())
+# print(BinaryCode(-256, bitness=8).get_complement_code())
 
-print(BinaryCode(-255, bitness=8).get_direct_code())
-print(BinaryCode(-255, bitness=8).get_inverse_code())
-print(BinaryCode(-255, bitness=8).get_complement_code())
+# print(BinaryCode(-255, bitness=8).get_direct_code())
+# print(BinaryCode(-255, bitness=8).get_inverse_code())
+# print(BinaryCode(-255, bitness=8).get_complement_code())
